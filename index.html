@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Desplazamiento Máximo</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div class="language-bar">
+        <button class="lang-btn" onclick="cambiarIdioma('es')">Español</button>
+        <button class="lang-btn" onclick="cambiarIdioma('en')">English</button>
+        <button class="lang-btn" onclick="cambiarIdioma('pt')">Português</button>
+        <button class="lang-btn" onclick="cambiarIdioma('de')">Deutsch</button>
+        <button class="lang-btn" onclick="cambiarIdioma('zh')">中文</button>
+    </div>
+    <div class="container">
+        <h1 id="titulo_calculadora">Calculadora de Desplazamiento Máximo</h1>
+        <div class="tooltip" id="tooltip_desplazamiento">
+            <p>Esta calculadora permite determinar el desplazamiento máximo utilizando una ecuación específica basada en varios factores como la calidad del material, la frecuencia de mantenimiento y la localización geográfica.</p>
+            <button class="close-btn" onclick="closeTooltip('tooltip_desplazamiento')">X</button>
+        </div>
+        <div class="formula-container">
+            <span class="formula">Y = 9.4230 - 0.0034X<sub>1</sub> - 0.1185X<sub>2</sub> + 0.0212X<sub>3</sub></span>
+        </div>
+        <div class="input-container">
+            <label for="calidad_material">X1=Calidad del Material (PSI):</label>
+            <div class="tooltip-container">
+                <input type="number" id="calidad_material" value="100" step="1">
+                <button class="tooltip-btn" onclick="toggleTooltip('tooltip_calidad_material')">?</button>
+                <div class="tooltip" id="tooltip_calidad_material">
+                    <p>La calidad del material en PSI. Un mayor valor reduce el desplazamiento.</p>
+                    <button class="close-btn" onclick="closeTooltip('tooltip_calidad_material')">X</button>
+                </div>
+            </div>
+            <label for="frecuencia_mantenimiento">X2=Frecuencia de Mantenimiento (%):</label>
+            <div class="tooltip-container">
+                <input type="number" id="frecuencia_mantenimiento" value="10" step="1">
+                <button class="tooltip-btn" onclick="toggleTooltip('tooltip_frecuencia_mantenimiento')">?</button>
+                <div class="tooltip" id="tooltip_frecuencia_mantenimiento">
+                    <p>La frecuencia del mantenimiento en porcentaje. Un mayor valor reduce el desplazamiento.</p>
+                    <button class="close-btn" onclick="closeTooltip('tooltip_frecuencia_mantenimiento')">X</button>
+                </div>
+            </div>
+            <label for="localizacion_geografica">X3=Localización Geográfica (Lux):</label>
+            <div class="tooltip-container">
+                <input type="number" id="localizacion_geografica" value="100" step="1">
+                <button class="tooltip-btn" onclick="toggleTooltip('tooltip_localizacion_geografica')">?</button>
+                <div class="tooltip" id="tooltip_localizacion_geografica">
+                    <p>La intensidad lumínica en Lux. Un mayor valor incrementa el desplazamiento.</p>
+                    <button class="close-btn" onclick="closeTooltip('tooltip_localizacion_geografica')">X</button>
+                </div>
+            </div>
+        </div>
+        <div class="button-container">
+            <button class="btn" onclick="calcularYActualizarGrafico()">Calcular y Actualizar Gráfico</button>
+            <button class="btn btn-reset" onclick="resetearValores()">Reset</button>
+            <button class="btn btn-dark-mode" onclick="toggleDarkMode()">Modo Oscuro</button>
+        </div>
+        <div id="resultado"></div>
+        <div class="chart-container">
+            <div id="chart"></div>
+            <div class="color-bar">
+                <div class="color-segment">Débil</div>
+                <div class="color-segment">Medio</div>
+                <div class="color-segment">Fuerte</div>
+            </div>
+        </div>
+        <div class="classification">
+            <div class="classification-item">
+                <div class="color-indicator" style="background-color: #81c784;"></div>
+                <p>Débil (Desplazamiento menor a 5 mm) - Adecuado para estructuras pequeñas o bien protegidas.</p>
+            </div>
+            <div class="classification-item">
+                <div class="color-indicator" style="background-color: #fff176;"></div>
+                <p>Moderada (5 mm - 15 mm) - Requiere consideraciones adicionales en el diseño y construcción.</p>
+            </div>
+            <div class="classification-item">
+                <div class="color-indicator" style="background-color: #e57373;"></div>
+                <p>Fuerte (Mayor a 15 mm) - Puede causar daños significativos a las estructuras.</p>
+            </div>
+        </div>
+    </div>
+    <script src="scripts.js"></script>
+</body>
+</html>
